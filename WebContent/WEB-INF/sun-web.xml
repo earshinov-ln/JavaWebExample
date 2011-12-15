@@ -8,4 +8,10 @@
       <description>Keep a copy of the generated servlet class java code.</description>
     </property>
   </jsp-config>
+  <!--
+  	Чтобы корректно обрабатывались юникодные символы, введённые в формах.
+  	См. <http://java.sun.com/developer/technicalArticles/Intl/HTTPCharset/>, раздел Web Server Processing.
+  	Это решение некроссплатформенное (не для всех серверов приложений!), но для Glassfish работает.
+  -->
+  <parameter-encoding default-charset="UTF-8"/>
 </sun-web-app>
