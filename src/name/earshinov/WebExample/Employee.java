@@ -2,15 +2,17 @@ package name.earshinov.WebExample;
 
 import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 public class Employee implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
-	private static final String CONNECTIONS_STRING = "jdbc:derby://localhost:1527/Lesson22";
 
 	// хотя empno и число, храним как строчку, чтобы возвращать
 	// на страницу пустую строку, если значение не задано
@@ -59,13 +61,27 @@ public class Employee implements Serializable {
 			throw new HandlingException("Номер сотрудника должен быть числом", e);
 		}
 
+		// Получаем DataSource для взаимодействия с базой.
+		//
+		// Не можем использовать аннотацию @Resource, потому что она работает
+		// только внутри сущностей, управляемых сервером приложений, таких как
+		// EJB и сервлеты. Java Bean'ы к этим сущностям не относятся.
+		//
+		DataSource dataSource = null;
+		try {
+			Context ctx = new InitialContext();
+			dataSource = (DataSource)ctx.lookup("jdbc/Lesson22");
+		}
+		catch (NamingException e) {
+			throw new HandlingException("На уровне сервера приложений не настроено подключение к БД: " + e.getMessage());
+		}
+
 		// Выполняем INSERT в базу
-		// Connection создаём на каждый запрос...
 		try {
 			Connection conn = null;
 			PreparedStatement st = null;
 			try {
-				conn = DriverManager.getConnection(CONNECTIONS_STRING);
+				conn = dataSource.getConnection();
 				st = conn.prepareStatement("INSERT INTO Employee (empno, ename, job_title) VALUES (?, ?, ?)");
 				st.setInt(1, empnoNumber);
 				st.setString(2, ename);
