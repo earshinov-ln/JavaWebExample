@@ -16,6 +16,7 @@
 			out.println("Данные успешно сохранены");
 		}
 		catch (HandlingException e) {
+			// TODO: на всякий случай нужен HTML encode!
 			out.println(e.getMessage());
 		}
 	}
@@ -27,6 +28,7 @@
 	<table>
 		<tr>
 			<td><label for="empno">Уникальный номер:</label></td>
+			<%-- TODO: экранировать кавычки при выводе в value="..." --%>
 			<td><input type="text" id="empno" name="empno"
 				value='<jsp:getProperty name="employee" property="empno"/>'></td>
 		</tr>
