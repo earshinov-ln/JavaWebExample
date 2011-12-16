@@ -1,7 +1,6 @@
 package name.earshinov.WebExample;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,11 +15,10 @@ public class ViewingServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     		throws ServletException, IOException {
 
-    	response.setContentType("text/plain; charset=UTF-8");
-	   	PrintWriter out = response.getWriter();
-
-	   	Object value = request.getSession().getAttribute("CalculationResult");
-	   	out.println( value != null ? value : "Нет сохранённого значения" );
+    	Object value = request.getSession().getAttribute("CalculationResult");
+	   	String message = value != null ? value.toString() : "Нет сохранённого значения";
+	   	request.setAttribute("message", message);
+	   	request.getRequestDispatcher("/WEB-INF/View.jsp").forward(request, response);
 	}
 
 }
