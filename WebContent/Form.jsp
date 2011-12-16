@@ -1,18 +1,15 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
+<%@ page import="name.earshinov.WebExample.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <meta charset="utf-8">
 <title>Калькулятор</title>
-
-
-<%@	page import="name.earshinov.WebExample.*" %>
 
 <p>
 	<strong>
 <%
 	// месиво из разметки и кода...
-	String firstParameter = "";
-	String secondParameter = "";
-
 	if (request.getMethod().equalsIgnoreCase("POST")) {
 		// вычисление результата
 		try {
@@ -23,14 +20,6 @@
 		catch (HandlingException e) {
 			out.println("Ошибка: " + e.getMessage());
 		}
-
-		// складирование firstParameter и secondParameter для вывода в инпутах
-		firstParameter = request.getParameter("1");
-		if (firstParameter == null)
-			firstParameter = "";
-		secondParameter = request.getParameter("2");
-		if (secondParameter == null)
-			secondParameter = "";
 	}
 %>
 	</strong>
@@ -40,11 +29,11 @@
 	<table>
 		<tr>
 			<td><label for="1">Первое слагаемое:</label></td>
-			<td><input type="text" id="1" name="1" size="4" value="<%= firstParameter %>"></td>
+			<td><input type="text" id="1" name="1" size="4" value='${fn:escapeXml(param["1"])}'></td>
 		</tr>
 		<tr>
 			<td><label for="2">Второе слагаемое:</label></td>
-			<td><input type="text" id="2" name="2" size="4" value="<%= secondParameter %>"></td>
+			<td><input type="text" id="2" name="2" size="4" value='${fn:escapeXml(param["2"])}'></td>
 		</tr>
 	</table>
 	<input type="submit" value="Отправить">

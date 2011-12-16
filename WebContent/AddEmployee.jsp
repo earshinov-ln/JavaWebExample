@@ -1,11 +1,13 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
+<%@ page import="name.earshinov.WebExample.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<jsp:useBean id="employee" class="name.earshinov.WebExample.Employee"/>
+<jsp:setProperty name="employee" property="*"/>
+
 <!DOCTYPE html>
 <meta charset="utf-8">
 <title>Добавить работника</title>
-
-<%@	page import="name.earshinov.WebExample.*" %>
-<jsp:useBean id="employee" class="name.earshinov.WebExample.Employee"/>
-<jsp:setProperty name="employee" property="*"/>
 
 <p>
 	<strong>
@@ -29,18 +31,15 @@
 		<tr>
 			<td><label for="empno">Уникальный номер:</label></td>
 			<%-- TODO: экранировать кавычки при выводе в value="..." --%>
-			<td><input type="text" id="empno" name="empno"
-				value='<jsp:getProperty name="employee" property="empno"/>'></td>
+			<td><input type="text" id="empno" name="empno" value="${fn:escapeXml(employee.empno)}"></td>
 		</tr>
 		<tr>
 			<td><label for="ename">ФИО:</label></td>
-			<td><input type="text" id="ename" name="ename"
-				value='<jsp:getProperty name="employee" property="ename"/>'></td>
+			<td><input type="text" id="ename" name="ename" value="${fn:escapeXml(employee.ename)}"></td>
 		</tr>
 		<tr>
 			<td><label for="jobTitle">Должность:</label></td>
-			<td><input type="text" id="jobTitle" name="jobTitle"
-				value='<jsp:getProperty name="employee" property="jobTitle"/>'></td>
+			<td><input type="text" id="jobTitle" name="jobTitle" value="${fn:escapeXml(employee.jobTitle)}"></td>
 		</tr>
 	</table>
 	<input type="submit" value="Отправить">
