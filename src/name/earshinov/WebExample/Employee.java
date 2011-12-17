@@ -14,8 +14,8 @@ public class Employee implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	// хотя empno и число, храним как строчку, чтобы возвращать
-	// на страницу пустую строку, если значение не задано
+	// хотя empno и число, храним как строчку, чтобы иметь возможность
+	// самим обрабатывать NumberFormatException
 	private String empno = "";
 	private String ename = "";
 	private String jobTitle = "";
@@ -28,24 +28,12 @@ public class Employee implements Serializable {
 		this.empno = empno;
 	}
 
-	public String getEmpno() {
-		return empno;
-	}
-
 	public void setEname(String ename) {
 		this.ename = ename;
 	}
 
-	public String getEname() {
-		return ename;
-	}
-
 	public void setJobTitle(String jobTitle) {
 		this.jobTitle = jobTitle;
-	}
-
-	public String getJobTitle() {
-		return jobTitle;
 	}
 
 	// Полезные методы

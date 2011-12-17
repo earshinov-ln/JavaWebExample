@@ -31,15 +31,15 @@
 		<tr>
 			<td><label for="empno">Уникальный номер:</label></td>
 			<%-- TODO: экранировать кавычки при выводе в value="..." --%>
-			<td><input type="text" id="empno" name="empno" value="${fn:escapeXml(employee.empno)}"></td>
+			<td><input type="text" id="empno" name="empno" value="${fn:escapeXml(param.empno)}"></td>
 		</tr>
 		<tr>
 			<td><label for="ename">ФИО:</label></td>
-			<td><input type="text" id="ename" name="ename" value="${fn:escapeXml(employee.ename)}"></td>
+			<td><input type="text" id="ename" name="ename" value="${fn:escapeXml(param.ename)}"></td>
 		</tr>
 		<tr>
 			<td><label for="jobTitle">Должность:</label></td>
-			<td><input type="text" id="jobTitle" name="jobTitle" value="${fn:escapeXml(employee.jobTitle)}"></td>
+			<td><input type="text" id="jobTitle" name="jobTitle" value="${fn:escapeXml(param.jobTitle)}"></td>
 		</tr>
 	</table>
 	<input type="submit" value="Отправить">
